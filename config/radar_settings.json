@@ -36,5 +36,43 @@
             "height": "height",
             "ze": "ze"
         }
+    },
+    "grawac167": {
+        "slug": "grawac167",
+        "data_path": "/Users/jb/Documents/Uni/BA/data/grawac/",
+        "attributes": {
+            "name": "GRaWAC",
+            "frequency": "167.3 GHz",
+            "band": "G - Band 167.3 GHz"
+        },
+        "convert_linear_to_dBZ": true,
+        "add_to_range": false,
+        "vars_to_keep": [
+            "Ze"
+        ],
+        "dimension_names": {
+            "time": "time",
+            "height": "height",
+            "ze": "Ze"
+        }
+    },
+    "grawac174": {
+        "slug": "grawac174",
+        "data_path": "/Users/jb/Documents/Uni/BA/data/grawac/",
+        "attributes": {
+            "name": "GRaWAC",
+            "frequency": "174.7 GHz",
+            "band": "G - Band 174.7 GHz"
+        },
+        "convert_linear_to_dBZ": true,
+        "add_to_range": false,
+        "vars_to_keep": [
+            "Ze2"
+        ],
+        "dimension_names": {
+            "time": "time",
+            "height": "height",
+            "ze": "Ze2"
+        }
     }
 }

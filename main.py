@@ -63,31 +63,31 @@ radar_datasets = cleanup_and_align_datasets(data, params)
 print("\n✅ Datasets cleaned up and aligned.")
 
 
-# # ------------------------------------------
-# # CLOUD DETECTION ALGORITHM
-# # ------------------------------------------
-# print("\n\n--------- 5) Running cloud detection algorithm ---------")
-# from cloud_detection import run_cloud_detection_algorithm
-# radar_datasets = run_cloud_detection_algorithm(radar_datasets)
-# print("\n✅ Cloud detection algorithm completed for all radars.")
+# ------------------------------------------
+# CLOUD DETECTION ALGORITHM
+# ------------------------------------------
+print("\n\n--------- 5) Running cloud detection algorithm ---------")
+from cloud_detection import run_cloud_detection_algorithm
+data = run_cloud_detection_algorithm(radar_datasets)
+print("\n✅ Cloud detection algorithm completed for all radars.")
 
 
-# # ---------------------------------
-# # CLOUD STATISTICS
-# # ---------------------------------
-# print("\n\n--------- 6) Calculating cloud statistics ---------")
-# from cloud_statistics import calculate_cloud_statistics
-# radar_datasets = calculate_cloud_statistics(radar_datasets)
-# print("\n✅ Cloud statistics calculated for all radars.")
+# ---------------------------------
+# CLOUD STATISTICS
+# ---------------------------------
+print("\n\n--------- 6) Calculating cloud statistics ---------")
+from cloud_statistics import calculate_cloud_statistics
+data = calculate_cloud_statistics(data)
+print("\n✅ Cloud statistics calculated for all radars.")
 
-# # ---------------------------------
-# # PLOTTING
-# # ---------------------------------
-# print("\n\n--------- 7) Generating plots ---------")
-# from cloud_plotting import plot_radar_sensitivity_profiles, plot_time_fraction_profiles
-# # Radar sensitivity profiles
-# plot_radar_sensitivity_profiles(radar_datasets)
+# ---------------------------------
+# PLOTTING
+# ---------------------------------
+print("\n\n--------- 7) Generating plots ---------")
+from cloud_plotting import plot_radar_sensitivity_profiles, plot_time_fraction_profiles
+# Radar sensitivity profiles
+plot_radar_sensitivity_profiles(radar_datasets)
 
-# # Time fraction profiles
-# plot_time_fraction_profiles(radar_datasets)
-# print("\n✅ Plots generated for all radars.")
+# Time fraction profiles
+plot_time_fraction_profiles(radar_datasets)
+print("\n✅ Plots generated for all radars.")

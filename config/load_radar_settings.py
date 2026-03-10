@@ -1,5 +1,6 @@
 
 import json
+import sys
 from classes import RadarSettings, RadarAttributes, RadarDimensions
 
 def load_radar_settings(radar_settings_path: str) -> dict:
@@ -20,7 +21,9 @@ def load_radar_settings(radar_settings_path: str) -> dict:
                 vars_to_keep=settings['vars_to_keep'],
                 dimension_names=RadarDimensions(**settings['dimension_names'])
                 )
+        return radar_settings_dict
 
     except Exception as e:
         print(f"❌ Error loading radar settings: {e}")
-    return radar_settings_dict
+        sys.exit(1)
+        return None

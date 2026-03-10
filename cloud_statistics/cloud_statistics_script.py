@@ -1,9 +1,11 @@
+import os
+
 import numpy as np
 import xarray as xr
 import matplotlib.pyplot as plt
 
-def calculate_cloud_statistics(radar_datasets):
-    for radar_slug, ds in radar_datasets.items():
+def calculate_cloud_statistics(data):
+    for radar_slug, ds in data.radar_datasets.items():
         print(f"Radar: {radar_slug}")
         n_layers = ds["n_layers"]
         # Define resampling interval
@@ -93,7 +95,7 @@ def calculate_cloud_statistics(radar_datasets):
             "units": "1 (cloud present), 0 (no cloud)"
         })
 
-        radar_datasets[radar_slug] = ds
+        data.radar_datasets[radar_slug] = ds
 
     print("--- Finished cloud statistics calculation for all radars ---")
 
@@ -108,7 +110,7 @@ def calculate_cloud_statistics(radar_datasets):
     bin_size = 100  # Bin size in meters
     max_thickness = -np.inf
     max_height = -np.inf
-    for radar_slug, ds in radar_datasets.items():
+    for radar_slug, ds in data.radar_datasets.items():
         max_ds  = ds["cloud_thickness_in_m"].max()
         max_height_ds = ds["cloud_top_in_m"].max()
         if max_height_ds > max_height:
@@ -125,7 +127,7 @@ def calculate_cloud_statistics(radar_datasets):
     height_bin_edges = np.arange(0, max_height + bin_size, bin_size)
     height_bin_centers = (height_bin_edges[:-1] + height_bin_edges[1:]) / 2
 
-    for (radar_slug, ds) in radar_datasets.items():
+    for (radar_slug, ds) in data.radar_datasets.items():
         for var in vars_to_bin:
             print(f"Calculating binned {var} for radar: {radar_slug}")
             # Extract cloud values as a 1D array
@@ -162,7 +164,7 @@ def calculate_cloud_statistics(radar_datasets):
             )
 
             ds[f"{var}_fraction_binned"] = cloud_propertie_da
-            radar_datasets[radar_slug] = ds
+            data.radar_datasets[radar_slug] = ds
 
     # ---------------------------------
     # BINNING PER LAYER
@@ -180,7 +182,7 @@ def calculate_cloud_statistics(radar_datasets):
 
 
         # Grabbing max height and thickness for the specific layer
-        for radar_slug, ds in radar_datasets.items():
+        for radar_slug, ds in data.radar_datasets.items():
             # n_layers = n_layers_dict[radar_slug] # Holds the information of number of layers per time step (e.g a scenario where 2 layer where detected at time t, n_layers[t] == 2) 
             # layer_mask = (n_layers >= layer) # Grabs time steps where equal or more 'layer' layers are present
 
@@ -208,7 +210,7 @@ def calculate_cloud_statistics(radar_datasets):
             height_bin_centers = (height_bin_edges[:-1] + height_bin_edges[1:]) / 2
 
             # Binning the cloud properties for each radar
-            for (radar_slug, ds) in radar_datasets.items():
+            for (radar_slug, ds) in data.radar_datasets.items():
                 print(f"Calculating binned {var} for radar: {radar_slug}, layer: {layer}")
                 # n_layers = n_layers_dict[radar_slug]
                 # layer_mask = (n_layers >= layer) # Select time steps where at least 'layer' layers are present
@@ -249,8 +251,16 @@ def calculate_cloud_statistics(radar_datasets):
                 title = var.split("_in_")[0]
                 ds[f"{title}_fraction_binned_layer_{layer}"] = cloud_propertie_da
 
-                radar_datasets[radar_slug] = ds
+                data.radar_datasets[radar_slug] = ds
 
+    # ---------------------------------
+    # SAVING FILE TEST
+    # ---------------------------------
+    for radar_slug, ds in data.radar_datasets.items():
+        save_path = os.path.join(data.files_folder, f"{radar_slug}_with_statistics.nc")
+        print(f"Saving dataset with statistics for radar: {radar_slug} to {save_path}")
+        ds.to_netcdf(save_path, engine="h5netcdf")
+        print(f"✅ Dataset with statistics saved for radar: {radar_slug}")
 
     # ---------------------------------
     # CLOUD LAYER DISTRIBUTION
@@ -258,7 +268,7 @@ def calculate_cloud_statistics(radar_datasets):
     grouped_bar_plot_data = {}
     layer_counts_per_radar = {}
 
-    for (radar_slug, ds) in radar_datasets.items():
+    for (radar_slug, ds) in data.radar_datasets.items():
         print(f"Preparing grouped bar plot data for radar: {radar_slug}")
         band = ds.attrs.get("band", "Unknown Band")
         # Extract number of layers
@@ -314,7 +324,7 @@ def calculate_cloud_statistics(radar_datasets):
     ax.grid(True)
     ax.set_ylabel(r"Occurrence (\%)")
     # ax.set_title("Cloud Layer Distribution by Radar Band")
-    plt.savefig(f"cloud_layer_distribution.pdf", dpi=300, bbox_inches="tight")
+    plt.savefig(os.path.join(data.figure_folder, "cloud_layer_distribution.png"), dpi=300, bbox_inches="tight")
 
-    return radar_datasets
+    return data
 

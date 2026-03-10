@@ -8,7 +8,7 @@ from .edge_detection import find_cloud_edges, check_cloud_boundaries
 from .layer_detection import analyze_possible_cloud_layers, get_max_layers_in_time_range
 
 
-def run_cloud_detection_algorithm(radar_datasets):
+def run_cloud_detection_algorithm(data):
     # General Setting
     use_threshold = False # If threshold is False, the sensitivity of the radar is used instead
     sensitivity_add_in_dbz = 3  # Only used if use_threshold is False (Cloud detection sensitivity = sensitivity + sensitivity_add_in_dbz)
@@ -47,9 +47,9 @@ def run_cloud_detection_algorithm(radar_datasets):
     if test_single_radar:
         cloud_radars = {}
         for radar in example_radar:
-            cloud_radars[radar] = radar_datasets[radar]
+            cloud_radars[radar] = data.radar_datasets[radar]
     else:
-        cloud_radars = radar_datasets
+        cloud_radars = data.radar_datasets
         print("Using the whole set of cloud radars for analysis.")
         radars_to_analyze = [radar_added for radar_added in cloud_radars.keys() if radar_added != "_meta"]
         print(f"Radars to analyze: {radars_to_analyze}\n")
@@ -393,7 +393,7 @@ def run_cloud_detection_algorithm(radar_datasets):
 
 
         # Saving the new dataset
-        radar_datasets[radar_slug] = ds_out
+        data.radar_datasets[radar_slug] = ds_out
         print(f"---- 💾 ✅ New dataset with cloud layer information created and stored in radar_datasets for radar: {radar_band}\n")
 
         # Actual plotting
@@ -428,4 +428,4 @@ def run_cloud_detection_algorithm(radar_datasets):
             elif not plot_ze and plot_single_time:
                 time_ax = plot_single_time_stamp(time_ax, ds, single_time, plot_settings, cloud_detection_settings, radar_band)
     
-    return radar_datasets
+    return data
