@@ -6,7 +6,7 @@ from dataclasses import asdict
 
 
 def get_days_in_time_range(time_range: TimeRange):
-    start_time, end_time = time_range.start_time, time_range.end_time
+    start_time, end_time = time_range.start, time_range.end
     days_pd = pd.date_range(start=start_time, end=end_time, freq="D")
     day_strings = days_pd.strftime("%Y/%m/%d").tolist()
     days_in_time_range = DaysInTimeRange(days=days_pd, day_strings=day_strings)

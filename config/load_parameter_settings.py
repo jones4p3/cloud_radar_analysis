@@ -1,6 +1,6 @@
 import json
 import sys
-from classes import Parameters, SensitivityParameters, OccurrenceParameters
+from classes import Parameters, SensitivityParameters, OccurrenceParameters, UptimeAlignmentParameters
 
 
 
@@ -11,10 +11,12 @@ def load_parameter_settings(parameter_settings_path):
         
         sensitivty_params = SensitivityParameters(**parameter_settings.get("sensitivity", False))
         occurrence_params = OccurrenceParameters(**parameter_settings.get("occurrence", False))
+        uptime_alignment_params = UptimeAlignmentParameters(**parameter_settings.get("uptime_alignment", False))
 
         params = Parameters(
             sensitivity=sensitivty_params,
-            occurrence=occurrence_params
+            occurrence=occurrence_params,
+            uptime_alignment=uptime_alignment_params
         )
         return params
     except Exception as e:

@@ -1,6 +1,6 @@
 from .radar_settings import RadarSettings, RadarAttributes, RadarDimensions
 from .dataset_settings import Dataset, TimeRange, DimensionNames, DaysInTimeRange
-from .parameters import Parameters, SensitivityParameters, OccurrenceParameters
+from .parameters import Parameters, SensitivityParameters, OccurrenceParameters, UptimeAlignmentParameters
 
 __all__ = [
     "RadarSettings",
@@ -9,6 +9,7 @@ __all__ = [
     "Parameters",
     "SensitivityParameters",
     "OccurrenceParameters",
+    "UptimeAlignmentParameters",
     "Dataset",
     "TimeRange",
     "DimensionNames",

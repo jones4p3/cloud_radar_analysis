@@ -2,13 +2,13 @@
 
 # Import necessary modules
 import xarray as xr
+from dataclasses import asdict
 
 xr.set_options(
     use_new_combine_kwarg_defaults=True
 )  # Setting the data_vars = 'None' as default and not 'all'
 
 print("\n--------- 1) Loading configuration files ---------")
-from cleanup_and_alignment.calculate_occurrences_sensitivity import calculate_occurrences_and_sensitivity_for_all_radars
 from config import load_radar_settings, load_dataset_settings, load_parameter_settings
 
 # Load radar settings and create RadarSettings objects for each radar
@@ -23,8 +23,13 @@ print(f"✅ Standard dimension names: {data.standard_dimension_names}")
 # load parameter settings
 params = load_parameter_settings("config/parameter_settings.json")
 print(
-    f"✅ Parameter settings loaded with sensitivity parameters: {params.sensitivity} and occurrence parameters: {params.occurrence}"
+    f"✅ Parameter settings loaded with:"
 )
+params_dict = asdict(params)
+for param_category, param_values in params_dict.items():
+    print(f"   - {param_category}:")
+    for key, value in param_values.items():
+        print(f"       - {key}: {value}")
 
 
 # ------------------------------------------------------
@@ -44,17 +49,18 @@ print(
     "\n\n--------- 3) Calculating occurrences and sensitivity before cleanup ---------"
 )
 from cleanup_and_alignment import calculate_occurrences_and_sensitivity_for_all_radars
+
 data = calculate_occurrences_and_sensitivity_for_all_radars(data, params)
 print("\n✅ Occurrences and sensitivity calculated for all radars before cleanup.")
 
 
-# # ------------------------------------------------------
-# # Clean up and alignment of the datasets
-# # ------------------------------------------------------
-# from cleanup_and_alignment import cleanup_and_align_datasets
-# print("\n\n--------- 4) Clean up and alignment of the datasets ---------")
-# radar_datasets = cleanup_and_align_datasets(radar_datasets, start_time, end_time)
-# print("\n✅ Datasets cleaned up and aligned.")
+# ------------------------------------------------------
+# Clean up and alignment of the datasets
+# ------------------------------------------------------
+from cleanup_and_alignment import cleanup_and_align_datasets
+print("\n\n--------- 4) Clean up and alignment of the datasets ---------")
+radar_datasets = cleanup_and_align_datasets(data, params)
+print("\n✅ Datasets cleaned up and aligned.")
 
 
 # # ------------------------------------------

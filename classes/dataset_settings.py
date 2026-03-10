@@ -3,8 +3,8 @@ from dataclasses import dataclass, field
 
 @dataclass
 class TimeRange:
-    start_time: str
-    end_time: str
+    start: str
+    end: str
 
 
 @dataclass

@@ -7,5 +7,11 @@
     "occurrence":
     {
         "bin_size": 0.1
+    },
+    "uptime_alignment":
+    {
+        "sampling_interval_in_minutes": 10,
+        "max_sampling_time_in_seconds": 30,
+        "threshold_for_uptime": 0.90
     }
 }
