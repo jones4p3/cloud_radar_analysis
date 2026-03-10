@@ -1,0 +1,13 @@
+{
+    "standard_dimension_names": {
+        "time": "time",
+        "height": "height",
+        "reflectivity": "ze"
+    },
+    "time_range": {
+        "start_time": "2025-02-01T00:00:00",
+        "end_time": "2025-02-02T23:59:59"
+    },
+    "figure_folder": "./output/figures/",
+    "files_folder": "./output/files/"
+}

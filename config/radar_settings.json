@@ -1,0 +1,40 @@
+{
+    "nyrad35": {
+        "slug": "nyrad35",
+        "data_path": "/Users/jb/Documents/Uni/BA/data/nyrad35/",
+        "attributes": {
+            "radar_name": "Nyrad",
+            "frequency": "35 GHz",
+            "band": "Ka - Band 35 GHz"
+        },
+        "convert_linear_to_dBZ": true,
+        "add_to_range": "zsl",
+        "vars_to_keep": [
+            "Ze"
+        ],
+        "dimension_names": {
+            "time": "time",
+            "height": "range",
+            "ze": "Ze"
+        }
+    },
+    "joyrad94": {
+        "slug": "joyrad94",
+        "data_path": "/Users/jb/Documents/Uni/BA/data/joyrad94/",
+        "attributes": {
+            "radar_name": "Joyrad",
+            "frequency": "94 GHz",
+            "band": "W - Band 94 GHz"
+        },
+        "convert_linear_to_dBZ": false,
+        "add_to_range": false,
+        "vars_to_keep": [
+            "ze"
+        ],
+        "dimension_names": {
+            "time": "time",
+            "height": "height",
+            "ze": "ze"
+        }
+    }
+}
