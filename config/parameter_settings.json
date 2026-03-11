@@ -1,4 +1,5 @@
 {
+    "debug": false,
     "sensitivity":
     {
         "threshold": 0.999,
@@ -14,5 +15,12 @@
         "max_sampling_time_in_seconds": 30,
         "threshold_for_uptime": 0.90
     },
-    "debug": false
+    "cloud_detection":
+    {
+        "use_fixed_threshold": false,
+        "fixed_threshold_in_dBZ": -30,
+        "sensitivity_add_in_dBZ": 3,
+        "min_cloud_thickness_in_m": [31, 35, 70, 130],
+        "min_layer_spacing_in_m": [64, 71, 117, 195]
+    }
 }

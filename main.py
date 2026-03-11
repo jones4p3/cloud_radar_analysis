@@ -60,7 +60,7 @@ print("\n✅ Datasets cleaned up and aligned.")
 # ------------------------------------------
 print("\n\n--------- 5) Running cloud detection algorithm ---------")
 from cloud_detection import run_cloud_detection_algorithm
-data = run_cloud_detection_algorithm(radar_datasets)
+data = run_cloud_detection_algorithm(data, params)
 print("\n✅ Cloud detection algorithm completed for all radars.")
 
 

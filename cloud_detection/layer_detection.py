@@ -1,10 +1,10 @@
 import numpy as np
 
-def get_min_spacing_and_thickness(unique_range_gate_sizes, cloud_detection_settings, cloud_base_gate, cloud_top_gate, range_gate_sizes, detailed_debug=False):
-    min_cloud_spacing_array = cloud_detection_settings.get("min_cloud_spacing_in_m", None)
-    min_cloud_thickness_array = cloud_detection_settings.get("min_cloud_thickness_in_m", None)
+def get_min_spacing_and_thickness(unique_range_gate_sizes, params, cloud_base_gate, cloud_top_gate, range_gate_sizes, detailed_debug=False):
+    min_cloud_spacing_array = params.cloud_detection.min_layer_spacing_in_m
+    min_cloud_thickness_array = params.cloud_detection.min_cloud_thickness_in_m
     if min_cloud_spacing_array is None or min_cloud_thickness_array is None:
-        raise ValueError("Minimum cloud spacing and thickness arrays must be provided in cloud_detection_settings.")
+        raise ValueError("Minimum cloud spacing and thickness arrays must be provided in params.")
     # Get range gate sizes at base and top of cloud layer plus idx in unique sizes array
     base_range_gate_size = range_gate_sizes[cloud_base_gate].item() # The vertical resolution at the cloud base in meters
     top_range_gate_size = range_gate_sizes[cloud_top_gate].item()  # The vertical resolution at the cloud top in meters
@@ -82,12 +82,13 @@ def edit_previous_layer_with_new_cloud_layer(cloud_layers_in_time_step, cloud_to
         print(f"✅ ☁️ Cloud layer information -- Cloud base: {new_height_data[0]:.2f} m, Cloud top: {new_height_data[1]:.2f} m, Thickness: {new_height_data[2]:.2f} m")
     return cloud_layers_in_time_step
 
-def analyze_possible_cloud_layers(height, range_gate_sizes, unique_range_gate_sizes, possible_cloud_layers, cloud_detection_settings, detailed_debug=False):
+def analyze_possible_cloud_layers(height, range_gate_sizes, unique_range_gate_sizes, possible_cloud_layers, params, detailed_debug=False):
     if detailed_debug: print("- Analyzing possible cloud layers for spacing and thickness criteria.")
     layer_label = 0
     cloud_layers_in_time_step = []
-    min_cloud_thickness_array = cloud_detection_settings.get("min_cloud_thickness_in_m", False)
-    min_cloud_spacing_array = cloud_detection_settings.get("min_cloud_spacing_in_m", False)
+
+    min_cloud_thickness_array = params.cloud_detection.min_cloud_thickness_in_m
+    min_cloud_spacing_array = params.cloud_detection.min_layer_spacing_in_m
     min_cloud_thickness_in_m = min_cloud_thickness_array[0]
     min_cloud_spacing_in_m = min_cloud_spacing_array[0]
 
@@ -128,7 +129,7 @@ def analyze_possible_cloud_layers(height, range_gate_sizes, unique_range_gate_si
             # Get min spacing and thickness for current cloud layer
             min_cloud_spacing_in_m, min_cloud_thickness_in_m = get_min_spacing_and_thickness(
                 unique_range_gate_sizes,
-                cloud_detection_settings,
+                params,
                 cloud_base_gate,
                 cloud_top_gate,
                 range_gate_sizes,

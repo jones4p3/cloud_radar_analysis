@@ -19,9 +19,19 @@ class UptimeAlignmentParameters:
     threshold_for_uptime: float
 
 @dataclass
+class CloudDetectionParameters:
+    """Class to hold parameters for cloud detection algorithm"""
+    use_fixed_threshold: bool
+    fixed_threshold_in_dBZ: float
+    sensitivity_add_in_dBZ: float
+    min_cloud_thickness_in_m: list[int]
+    min_layer_spacing_in_m: list[int]
+
+@dataclass
 class Parameters:
     """Class to hold parameters for the analysis"""
     sensitivity: SensitivityParameters
     occurrence: OccurrenceParameters
     uptime_alignment: UptimeAlignmentParameters
+    cloud_detection: CloudDetectionParameters
     debug: bool
