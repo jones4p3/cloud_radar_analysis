@@ -2,14 +2,13 @@
 
 # Import necessary modules
 import xarray as xr
-from dataclasses import asdict
 
 xr.set_options(
     use_new_combine_kwarg_defaults=True
 )  # Setting the data_vars = 'None' as default and not 'all'
 
 print("\n--------- 1) Loading configuration files ---------")
-from config import load_radar_settings, load_dataset_settings, load_parameter_settings
+from config import load_radar_settings, load_dataset_settings, load_parameter_settings, print_parameter_settings
 
 # Load radar settings and create RadarSettings objects for each radar
 radar_settings_dict = load_radar_settings("config/radar_settings.json")
@@ -22,14 +21,7 @@ print(f"✅ Standard dimension names: {data.standard_dimension_names}")
 
 # load parameter settings
 params = load_parameter_settings("config/parameter_settings.json")
-print(
-    f"✅ Parameter settings loaded with:"
-)
-params_dict = asdict(params)
-for param_category, param_values in params_dict.items():
-    print(f"   - {param_category}:")
-    for key, value in param_values.items():
-        print(f"       - {key}: {value}")
+print_parameter_settings(params)
 
 
 # ------------------------------------------------------

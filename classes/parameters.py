@@ -24,3 +24,4 @@ class Parameters:
     sensitivity: SensitivityParameters
     occurrence: OccurrenceParameters
     uptime_alignment: UptimeAlignmentParameters
+    debug: bool
