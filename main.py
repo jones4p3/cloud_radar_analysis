@@ -8,19 +8,19 @@ xr.set_options(
 )  # Setting the data_vars = 'None' as default and not 'all'
 
 print("\n--------- 1) Loading configuration files ---------")
-from config import load_radar_settings, load_dataset_settings, load_parameter_settings, print_parameter_settings
+from settings import load_radar_settings, load_dataset_settings, load_parameter_settings, print_parameter_settings
 
 # Load radar settings and create RadarSettings objects for each radar
-radar_settings_dict = load_radar_settings("config/radar_settings.json")
+radar_settings_dict = load_radar_settings("settings/radar_settings.json")
 print(f"✅ Radar settings loaded for: {list(radar_settings_dict.keys())}")
 
 # Load dataset settings and create Dataset object
-data = load_dataset_settings("config/dataset_settings.json", radar_settings_dict)
+data = load_dataset_settings("settings/dataset_settings.json", radar_settings_dict)
 print(f"✅ Dataset settings loaded with time range: {data.time_range}")
 print(f"✅ Standard dimension names: {data.standard_dimension_names}")
 
 # load parameter settings
-params = load_parameter_settings("config/parameter_settings.json")
+params = load_parameter_settings("settings/parameter_settings.json")
 print_parameter_settings(params)
 
 
