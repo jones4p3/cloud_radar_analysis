@@ -1,2 +1,4 @@
 output/files/*
 .DS_Store
+TODO.md
+.gitignore
