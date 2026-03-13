@@ -52,4 +52,5 @@ def slice_height_range(data, params):
             print(f"    New min height: {new_min_height} m")
             print(f"    New max height: {new_max_height} m")
         data.radar_datasets[radar] = ds_sliced
-        return data, highest_minimum_height, lowest_maximum_height
+        
+    return data, highest_minimum_height, lowest_maximum_height

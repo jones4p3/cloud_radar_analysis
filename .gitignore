@@ -1,3 +1,4 @@
+output/figures/*
 output/files/*
 .DS_Store
 TODO.md

@@ -69,7 +69,7 @@ print("\n✅ Cloud detection algorithm completed for all radars.")
 # ---------------------------------
 print("\n\n--------- 6) Calculating cloud statistics ---------")
 from cloud_statistics import calculate_cloud_statistics
-data = calculate_cloud_statistics(data)
+data = calculate_cloud_statistics(data, params)
 print("\n✅ Cloud statistics calculated for all radars.")
 
 # ---------------------------------
