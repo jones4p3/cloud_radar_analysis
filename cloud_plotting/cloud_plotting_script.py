@@ -186,11 +186,12 @@ def plot_general_vertical_distribution(data, plot_start_height=151):
         ax.set_title(titles[var_to_plot.index(var)])
         ax.set_ylabel(y_label)
         ax.set_xlabel(r"Frequency of Occurrence (\%)")
+    big_fig.suptitle("General Vertical Distribution of Cloud Layers")
     big_fig.savefig(os.path.join(data.figure_folder, f"all_layers_distribution_{plot_start_height}.png"), dpi=300, bbox_inches="tight")
     logger.info("🖼️  General layer distribution plot saved.")
 
 def plot_per_layer_vertical_distribution(data, plot_start_height=151):
-    layers_to_process = [1, 2]
+    layers_to_process = [1, 2, 3, 4]
     var_to_plot = ["cloud_base", "cloud_top", "cloud_thickness"]
     mean_var_to_plot = ["cloud_base_in_m", "cloud_top_in_m", "cloud_thickness_in_m"]
     start_height = plot_start_height  # in meters
@@ -272,5 +273,6 @@ def plot_per_layer_vertical_distribution(data, plot_start_height=151):
         col_1 = overview_axes[row,1]
         col_1.sharey(col_0)
 
+    overview_fig.suptitle("Per Layer Vertical Distribution")
     overview_fig.savefig(f"{data.figure_folder}per_layer_overview.png", dpi=300, bbox_inches="tight")
     logger.info("🖼️  Per layer vertical distribution overview plot saved.")

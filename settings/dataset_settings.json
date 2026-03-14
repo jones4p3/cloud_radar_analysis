@@ -6,7 +6,7 @@
     },
     "time_range": {
         "start": "2025-02-01T00:00:00",
-        "end": "2025-02-03T23:59:59"
+        "end": "2025-02-28T23:59:59"
     },
     "figure_folder": "./output/figures/",
     "files_folder": "./output/files/"

@@ -1,7 +1,27 @@
-# Cloud Radar Processing Pipeline
+# Cloud Radar Processing & Comparison
 
-This project processes multi-radar cloud radar NetCDF data and compares all radars on a common time/height basis.
-Running `main.py` does preprocessing, quality filtering, cloud-layer detection, statistics, and plotting.
+This project processes multi-radar cloud NetCDF data and compares all radars on a common time/height basis.
+Running `main.py` does preprocessing, aligning multi-radar data to a common time/height basis, cloud-layer detection, statistics, and plotting.
+
+The output in `output/figures` includes:
+- an overview of up- and downtimes of the given radars and their common up- and downtimes
+- estimated radar sensitivty during the specified campaign range
+- daily fractions for the following scenarios:
+   - clear sky
+   - cloudiness
+   - precipitation (relative to cloudiness)
+   - multilayer
+   - vertical cloud fraction
+- vertical distributions for:
+   - cloud layers
+   - a general all layers distribution
+   - a per layer overview
+
+All examples are found in `docs/assets/`. Here only a few examples are shown:
+![Up- and Downtime](docs/assets/datamanagement/uptime_downtime_10min_30s_threshold_90.png)
+![Radar Sensitivity](docs/assets/general/radar_sensitivity_profiles.png)
+![Daily Multilayer Fraction](docs/assets/fractions/daily_multilayer_fraction.png)
+![All Layer Distribution](docs/assets/distribution/all_layers_distribution_151.png)
 
 ## What happens when you run `main.py`
 
@@ -64,7 +84,7 @@ For each radar:
 - `files_folder`: output folder for generated NetCDF files when file export is enabled.
 
 ### `settings/parameter_settings.json`
-- `debug`: enable/disable debug prints.
+- `logging_level`: should be ["DEBUG" or "INFO"]
 - `write_netcdf_files`: `true` to save one NetCDF per radar after cloud statistics to `files_folder`; `false` to skip file writing.
 - `sensitivity.threshold`: percentile-based sensitivity level (used before cloud detection).
 - `sensitivity.min_samples_per_height`: minimum counts needed for a valid sensitivity value at a height.
